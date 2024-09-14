@@ -5,6 +5,7 @@
 ## 📸Preview
 
 ### SignUp Page
+![signup](./src/assets/SignUpPreview.png)
 <img src="./frontend/src/assets/SignUpPreview.png" alt="signup">
 
 ### LogIn Page
