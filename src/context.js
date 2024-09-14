@@ -3,7 +3,7 @@ import React, { createContext, useContext, useRef, useState } from "react";
 const AppContext = createContext();
 
 const AppProvider = ({ children }) => {
-  const lastMsg = useRef();
+  const lastMsg = useRef(null); // Initialize as null
   const [messageText, setMessageText] = useState("");
   const [messages, setMessages] = useState([
     {
@@ -13,66 +13,88 @@ const AppProvider = ({ children }) => {
   ]);
   const [processing, setProcessing] = useState(false);
 
+  function escapeHtml(text) {
+    const map = {
+      '&': '&amp;',
+      '<': '&lt;',
+      '>': '&gt;',
+      '"': '&quot;',
+      "'": '&#039;'
+    };
+    return text.replace(/[&<>"']/g, function(m) { return map[m]; });
+  }
+
   const handleSubmission = async () => {
-    if (!messageText.trim() || processing) return;
-
-    const tempMessages = [
-      ...messages,
-      {
-        from: "human",
-        text: messageText,
-      },
-    ];
-
-    setMessages(tempMessages);
-    setMessageText("");
-
-    setTimeout(() =>
-      lastMsg.current.scrollIntoView({
-        behavior: "smooth",
-      })
-    );
-
-    try {
-      setProcessing(true);
-      const res = await fetch(`http://localhost:5500`, {
-        method: "POST",
-        headers: {
-          "content-type": "application/json",
+    if (typeof messageText === 'string' && messageText.trim() && !processing) {
+      // Add human message to the conversation
+      const tempMessages = [
+        ...messages,
+        {
+          from: "human",
+          text: messageText ,
         },
-        body: JSON.stringify({
-          messages: tempMessages.slice(-8),
-        }),
+      ];
+
+      setMessages(tempMessages);
+      setMessageText("");
+
+      // Scroll to the latest message
+      setTimeout(() => {
+        if (lastMsg.current) {
+          lastMsg.current.scrollIntoView({
+            behavior: "smooth",
+          });
+        }
       });
-      setProcessing(false);
 
-      const data = await res.json();
-      // console.log(data);
-      const ans = data.data;
+      try {
+        setProcessing(true);
+        // Send the user prompt to the backend
+        const res = await fetch("http://127.0.0.1:5000/chatbox", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            prompt: messageText,  // Send the user input as 'prompt'
+          }),
+        });
+        
+        const data = await res.json();  // Receive the response
+        console.log(data);
+        setProcessing(false);
 
-      setMessages((prev) => [
-        ...prev,
-        {
-          from: "ai",
-          text: ans.trim(),
-        },
-      ]);
-    } catch (err) {
-      const error = "Error Proceesing this message. Please try in sometime";
-      setMessages((prev) => [
-        ...prev,
-        {
-          from: "ai",
-          text: error,
-        },
-      ]);
+        // Extract the AI response
+        const aiResponse = data.response || ""; // Default to empty string if response is undefined
+        console.log(aiResponse);
+
+        // Add AI response to the conversation
+        setMessages((prev) => [
+          ...prev,
+          {
+            from: "ai",
+            text: aiResponse.trim(),
+          },
+        ]);
+      } catch (err) {
+        const error = "Error processing the message. Please try again later.";
+        setMessages((prev) => [
+          ...prev,
+          {
+            from: "ai",
+            text: error,
+          },
+        ]);
+      }
+
+      setTimeout(() => {
+        if (lastMsg.current) {
+          lastMsg.current.scrollIntoView({
+            behavior: "smooth",
+          });
+        }
+      });
     }
-
-    setTimeout(() =>
-      lastMsg.current.scrollIntoView({
-        behavior: "smooth",
-      })
-    );
   };
 
   return (
