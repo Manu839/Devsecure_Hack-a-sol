@@ -6,6 +6,7 @@
 
 ### SignUp Page
 <img src="./frontend/src/assets/SignUpPreview.png" alt="signup">
+![Screenshot 2024-09-15 050904](https://github.com/user-attachments/assets/b9e91a39-bc00-4169-9f63-ac829eba26e8)
 
 ### LogIn Page
 <img src="./frontend/src/assets/LoginPreview.png" alt="login">
