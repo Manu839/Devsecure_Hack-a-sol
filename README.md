@@ -33,7 +33,7 @@
 - **CSS Modules**: Locally scoped CSS for styling React components.
 - **Ollama Mistral LLM**: A locally running language model that detects code vulnerabilities.
 - **Node.js**: JavaScript runtime environment for server-side operations.
-- **Express**: A web application framework for Node.js, managing API routes and requests.
+- **Flask**: A web application framework for Python, managing API routes and requests.
 - **React Router**: For handling routing within the React application.
 - **Axios**: A promise-based HTTP client for making API requests from the frontend.
 - **Firebase**: For authentication, hosting, and real-time data storage.
