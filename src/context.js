@@ -23,6 +23,9 @@ const AppProvider = ({ children }) => {
     };
     return text.replace(/[&<>"']/g, function(m) { return map[m]; });
   }
+  function removeExtraSpaces(text) {
+    return text.replace(/\s+/g, ' ').trim();
+  }
 
   const handleSubmission = async () => {
     if (typeof messageText === 'string' && messageText.trim() && !processing) {
@@ -31,7 +34,7 @@ const AppProvider = ({ children }) => {
         ...messages,
         {
           from: "human",
-          text: messageText ,
+          text: removeExtraSpaces(messageText),
         },
       ];
 
@@ -56,7 +59,7 @@ const AppProvider = ({ children }) => {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
-            prompt: messageText,  // Send the user input as 'prompt'
+            prompt: messageText + "Analyze the code for security vulnerabilities. Rate each as High, Medium, or Low with a short description. Provide an improved version if vulnerabilities are found, otherwise respond normally.",  // Send the user input as 'prompt'
           }),
         });
         
