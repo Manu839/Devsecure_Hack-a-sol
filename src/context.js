@@ -59,7 +59,7 @@ const AppProvider = ({ children }) => {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
-            prompt: messageText + "Analyze the code for security vulnerabilities. Rate each as High, Medium, or Low with a short description. Provide an improved version if vulnerabilities are found, otherwise respond normally.",  // Send the user input as 'prompt'
+            prompt: messageText + "Analyze the code for security vulnerabilities and tell the vulnerabilities. Rate each as High, Medium, or Low with a short description. Provide an improved version if vulnerabilities are found, otherwise respond normally.",  // Send the user input as 'prompt'
           }),
         });
         
