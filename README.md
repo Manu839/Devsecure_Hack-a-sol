@@ -5,16 +5,16 @@
 ## 📸Preview
 
 ### SignUp Page
-<img src="./frontend/src/assets/SignUpPreview.png" alt="signup">
+<img src="./src/assets/SignUpPreview.png" alt="signup">
 
 ### LogIn Page
-<img src="./frontend/src/assets/LoginPreview.png" alt="login">
+<img src="./src/assets/LoginPreview.png" alt="login">
 
 ### Home Page
-<img src="./frontend/src/assets/HomePreview.png" alt="Home">
+<img src="./src/assets/Home-page.jpg" alt="Home">
 
 ### ChatBot UI
-<img src="./frontend/src/assets/ChatBoxPreview.png" alt="chatbot">
+<img src="./src/assets/Chat-page.jpg" alt="chatbot">
 
 
 ## ✨Features
