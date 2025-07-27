@@ -53,10 +53,10 @@ Before getting started, ensure you have the following prerequisites installed:
 
 To run `Dev Secure` locally, follow these steps:
 
-1. Clone the repository: `https://github.com/its-kumar-yash/react-ai-chatbot-app.git`
-2. Navigate to the project directory: `cd react-ai-chatbot-app`
-3. Install the dependencies: `npm install`
-4. Start the frontend server:
+1. Clone the repository
+2. Navigate to the project directory
+3. Install the dependencies
+4. Start the frontend server
    ```bash
    cd frontend
    npm start
